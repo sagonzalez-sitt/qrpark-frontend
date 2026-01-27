@@ -1,0 +1,262 @@
+.container {
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.backButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  color: white;
+  padding: 32px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  opacity: 0.95;
+}
+
+.mainContent {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 24px;
+}
+
+.searchSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.searchCard {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.searchTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.searchDescription {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.infoCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.infoTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.infoList {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.infoList li {
+  margin-bottom: 8px;
+}
+
+.resultSection {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.emptyState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 80px;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.emptyText {
+  color: #999;
+  font-size: 16px;
+  max-width: 300px;
+}
+
+.ticketCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ticketHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.ticketTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+}
+
+.statusBadge {
+  padding: 8px 16px;
+  color: white;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.qrSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.qrImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.qrText {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.ticketDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.detailRowHighlight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.detailRowHighlight .detailLabel {
+  color: white;
+  font-size: 14px;
+}
+
+.detailLabel {
+  font-size: 13px;
+  color: #999;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detailValue {
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.detailValueLarge {
+  font-size: 32px;
+  color: white;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    padding: 24px 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .qrImage {
+    width: 150px;
+    height: 150px;
+  }
+
+  .detailValueLarge {
+    font-size: 24px;
+  }
+}

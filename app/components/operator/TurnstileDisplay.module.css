@@ -1,0 +1,113 @@
+.waiting {
+  text-align: center;
+  color: #999;
+}
+
+.waitingIcon {
+  font-size: 80px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.waitingText {
+  font-size: 16px;
+  color: #666;
+}
+
+.showing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.qrContainer {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.ticketInfo {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: white;
+  font-size: 14px;
+}
+
+.infoLabel {
+  opacity: 0.8;
+}
+
+.infoValue {
+  font-weight: 600;
+}
+
+.countdown {
+  font-size: 48px;
+  font-weight: 700;
+  color: #4a90e2;
+  margin: 16px 0;
+}
+
+.instructions {
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.confirmButton {
+  padding: 16px 32px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirmButton:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+
+.confirmed {
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.confirmedIcon {
+  font-size: 80px;
+  margin-bottom: 16px;
+}
+
+.confirmedText {
+  font-size: 18px;
+  color: #28a745;
+  font-weight: 600;
+}

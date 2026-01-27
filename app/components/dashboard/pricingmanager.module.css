@@ -1,0 +1,272 @@
+.container {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.addButton {
+  padding: 10px 16px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.addButton:hover {
+  background: #5568d3;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}
+
+.error {
+  padding: 12px 16px;
+  background: #fee;
+  color: #c33;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.newForm {
+  background: #f8f9fa;
+  border: 2px dashed #667eea;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.formTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 16px 0;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+}
+
+.select,
+.input {
+  padding: 10px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.select:focus,
+.input:focus {
+  border-color: #667eea;
+}
+
+.formActions,
+.editActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.saveButton {
+  padding: 10px 20px;
+  background: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.saveButton:hover {
+  background: #27ae60;
+}
+
+.cancelButton {
+  padding: 10px 20px;
+  background: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.cancelButton:hover {
+  background: #7f8c8d;
+}
+
+.configList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-style: italic;
+}
+
+.configItem {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 16px;
+  transition: border-color 0.3s;
+}
+
+.configItem:hover {
+  border-color: #667eea;
+}
+
+.configHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.vehicleInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 28px;
+}
+
+.vehicleName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.editButton {
+  padding: 6px 12px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.editButton:hover {
+  background: #2980b9;
+}
+
+.deleteButton {
+  padding: 6px 12px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.deleteButton:hover {
+  background: #c0392b;
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.editGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.priceDisplay {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.priceLabel {
+  font-size: 13px;
+  color: #999;
+  font-weight: 500;
+}
+
+.priceValue {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2ecc71;
+}
+
+@media (max-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .addButton {
+    width: 100%;
+  }
+}

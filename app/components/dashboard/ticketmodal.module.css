@@ -1,0 +1,284 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.closeButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #f0f0f0;
+  color: #666;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.closeButton:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f0f0f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  padding: 40px 28px;
+  text-align: center;
+  color: #e74c3c;
+}
+
+.content {
+  padding: 28px;
+}
+
+.topSection {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 28px;
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.qrSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.qrImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
+  border: 3px solid #f0f0f0;
+}
+
+.qrLabel {
+  font-size: 12px;
+  color: #999;
+  font-weight: 500;
+  text-align: center;
+}
+
+.summarySection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+
+.plateDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plateLabel {
+  font-size: 12px;
+  color: #999;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.plateValue {
+  font-size: 36px;
+  font-weight: 700;
+  color: #667eea;
+  letter-spacing: 2px;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+}
+
+.feeDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feeLabel {
+  font-size: 12px;
+  color: #999;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.feeValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2ecc71;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.detailLabel {
+  font-size: 11px;
+  color: #999;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detailValue {
+  font-size: 15px;
+  color: #333;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.detailValueMono {
+  font-size: 13px;
+  color: #667eea;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+  background: white;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .modal {
+    max-height: 95vh;
+  }
+
+  .topSection {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .qrImage {
+    width: 160px;
+    height: 160px;
+  }
+
+  .plateValue {
+    font-size: 28px;
+  }
+
+  .feeValue {
+    font-size: 24px;
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .summarySection {
+    align-items: center;
+  }
+
+  .statusBadge {
+    align-self: center;
+  }
+}

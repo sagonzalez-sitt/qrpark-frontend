@@ -1,0 +1,379 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+.successNotification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2ecc71;
+  color: white;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.successIcon {
+  font-size: 24px;
+}
+
+.successText {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.loadingContainer,
+.errorContainer {
+  text-align: center;
+  color: white;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  margin: 0 auto 24px auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.errorIcon {
+  font-size: 80px;
+  margin-bottom: 24px;
+}
+
+.errorTitle {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.errorMessage {
+  font-size: 18px;
+  margin-bottom: 32px;
+  opacity: 0.9;
+}
+
+.content {
+  max-width: 600px;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+  color: white;
+}
+
+.logo {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.ticketCard {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ticketHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #f0f0f0;
+  margin-bottom: 32px;
+}
+
+.vehicleInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.vehicleIcon {
+  font-size: 56px;
+}
+
+.vehicleDetails {
+  text-align: left;
+}
+
+.vehicleType {
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.plateNumber {
+  font-size: 32px;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.statusBadge {
+  padding: 8px 16px;
+  background: #2ecc71;
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.qrSection {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.qrLabel {
+  font-size: 16px;
+  color: #666;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.qrContainer {
+  display: inline-block;
+  padding: 16px;
+  background: white;
+  border: 3px solid #667eea;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.qrImage {
+  width: 280px;
+  height: 280px;
+  display: block;
+  border-radius: 8px;
+}
+
+.qrInstruction {
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+}
+
+.ticketDetails {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+}
+
+.detailValue {
+  font-size: 14px;
+  color: #333;
+  font-weight: 700;
+  text-align: right;
+}
+
+.detailRowHighlight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  margin-top: 16px;
+}
+
+.detailRowHighlight .detailLabel,
+.detailRowHighlight .detailValue {
+  color: white;
+}
+
+.detailValueLarge {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.downloadButton,
+.homeButton {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.downloadButton {
+  background: #2ecc71;
+  color: white;
+}
+
+.downloadButton:hover {
+  background: #27ae60;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
+.homeButton {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.homeButton:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.warningBox {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-radius: 12px;
+  border-left: 4px solid #f39c12;
+}
+
+.warningIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.warningText {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .ticketCard {
+    padding: 24px;
+  }
+
+  .logo {
+    font-size: 36px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .ticketHeader {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .statusBadge {
+    align-self: flex-start;
+  }
+
+  .vehicleIcon {
+    font-size: 48px;
+  }
+
+  .plateNumber {
+    font-size: 24px;
+  }
+
+  .qrImage {
+    width: 220px;
+    height: 220px;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .detailValue {
+    font-size: 12px;
+  }
+}

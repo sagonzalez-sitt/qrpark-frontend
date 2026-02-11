@@ -6,7 +6,6 @@ export enum VehicleType {
 
 export enum TicketStatus {
   ACTIVE = 'ACTIVE',
-  COMPLETED = 'COMPLETED',
   PAID = 'PAID',
   CANCELLED = 'CANCELLED',
 }

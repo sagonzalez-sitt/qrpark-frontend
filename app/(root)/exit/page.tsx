@@ -1,32 +1,36 @@
 'use client';
 
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import Link from 'next/link';
 import {TicketResponse} from '../../../interfaces/interfaces';
+import QrScanner from '../../components/shared/qr-scanner/QrScanner';
 import styles from './page.module.css';
 
+type SearchMode = 'token' | 'plate';
+
+function extractTokenFromQr(text: string): string {
+    const match = text.match(/\/ticket\/([a-f0-9]+)/i);
+    if (match) return match[1];
+    return text.trim();
+}
+
 export default function ExitPage() {
-    const [qrToken, setQrToken] = useState('');
+    const [searchMode, setSearchMode] = useState<SearchMode>('token');
+    const [searchValue, setSearchValue] = useState('');
     const [loading, setLoading] = useState(false);
     const [ticket, setTicket] = useState<TicketResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const [processingPayment, setProcessingPayment] = useState(false);
+    const [scannerOpen, setScannerOpen] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const processExitByToken = useCallback(async (token: string) => {
         setError(null);
-
-        if (!qrToken.trim()) {
-            setError('Por favor ingresa el código QR');
-            return;
-        }
-
         setLoading(true);
 
         try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/tickets/${qrToken}/exit`,
+                `${process.env.NEXT_PUBLIC_API_URL}/tickets/${token}/exit`,
                 {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
@@ -40,7 +44,7 @@ export default function ExitPage() {
 
             const ticketData: TicketResponse = await response.json();
             setTicket(ticketData);
-            setQrToken('');
+            setSearchValue('');
         } catch (err) {
             setError(
                 err instanceof Error ? err.message : 'Error al procesar la solicitud'
@@ -49,7 +53,53 @@ export default function ExitPage() {
         } finally {
             setLoading(false);
         }
+    }, []);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError(null);
+
+        if (!searchValue.trim()) {
+            setError(searchMode === 'token' ? 'Por favor ingresa el código QR' : 'Por favor ingresa la placa');
+            return;
+        }
+
+        if (searchMode === 'plate') {
+            setLoading(true);
+            try {
+                const searchResponse = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/tickets?plate_number=${encodeURIComponent(searchValue.trim().toUpperCase())}&status=ACTIVE`
+                );
+
+                if (!searchResponse.ok) {
+                    throw new Error('Error al buscar el ticket');
+                }
+
+                const tickets: TicketResponse[] = await searchResponse.json();
+
+                if (tickets.length === 0) {
+                    throw new Error('No se encontró un ticket activo para esta placa');
+                }
+
+                const token = tickets[0].qr_token;
+                setLoading(false);
+                processExitByToken(token);
+            } catch (err) {
+                setError(
+                    err instanceof Error ? err.message : 'Error al procesar la solicitud'
+                );
+                setLoading(false);
+            }
+        } else {
+            processExitByToken(searchValue.trim());
+        }
     };
+
+    const handleQrScan = useCallback((decodedText: string) => {
+        const token = extractTokenFromQr(decodedText);
+        setSearchValue(token);
+        processExitByToken(token);
+    }, [processExitByToken]);
 
     const handleNewExit = () => {
         setTicket(null);
@@ -81,7 +131,6 @@ export default function ExitPage() {
             setTicket(updatedTicket);
             setPaymentSuccess(true);
 
-            // Ocultar mensaje de éxito después de 3 segundos
             setTimeout(() => {
                 setPaymentSuccess(false);
             }, 3000);
@@ -94,16 +143,9 @@ export default function ExitPage() {
         }
     };
 
-    const formatDuration = (duration?: string | undefined) => {
-        if (!duration) return 'N/A';
-
-        const match = duration.match(/(\d+)\s*horas?,?\s*(\d+)\s*minutos?/);
-        if (match) {
-            const hours = match[1];
-            const minutes = match[2];
-            return `${hours}h ${minutes}m`;
-        }
-        return duration;
+    const formatDuration = (durationFormatted?: string) => {
+        if (!durationFormatted) return 'N/A';
+        return durationFormatted;
     };
 
     const formatCurrency = (amount?: number | null) => {
@@ -131,7 +173,7 @@ export default function ExitPage() {
                 </Link>
 
                 <header className={styles.header}>
-                    <h1 className={styles.title}>🚗 Terminal de Salida</h1>
+                    <h1 className={styles.title}>Terminal de Salida</h1>
                     <p className={styles.subtitle}>
                         Procesa la salida de vehículos y calcula tarifas
                     </p>
@@ -141,93 +183,82 @@ export default function ExitPage() {
                     <div className={styles.formSection}>
                         <h2 className={styles.sectionTitle}>Procesar Salida</h2>
 
+                        <div className={styles.searchToggle}>
+                            <button
+                                type="button"
+                                className={`${styles.toggleOption} ${searchMode === 'token' ? styles.toggleOptionActive : ''}`}
+                                onClick={() => {
+                                    setSearchMode('token');
+                                    setSearchValue('');
+                                    setError(null);
+                                }}
+                            >
+                                Código QR
+                            </button>
+                            <button
+                                type="button"
+                                className={`${styles.toggleOption} ${searchMode === 'plate' ? styles.toggleOptionActive : ''}`}
+                                onClick={() => {
+                                    setSearchMode('plate');
+                                    setSearchValue('');
+                                    setError(null);
+                                }}
+                            >
+                                Placa
+                            </button>
+                        </div>
+
                         <form onSubmit={handleSubmit}>
-                            <div style={{marginBottom: '24px'}}>
-                                <label
-                                    htmlFor="qrToken"
-                                    style={{
-                                        display: 'block',
-                                        fontSize: '14px',
-                                        fontWeight: '600',
-                                        color: '#333',
-                                        marginBottom: '8px',
-                                    }}
-                                >
-                                    Código QR del Ticket
+                            <div className={styles.formGroup}>
+                                <label htmlFor="searchValue" className={styles.label}>
+                                    {searchMode === 'token' ? 'Código QR del Ticket' : 'Placa del Vehículo'}
                                 </label>
                                 <input
-                                    id="qrToken"
+                                    id="searchValue"
                                     type="text"
-                                    value={qrToken}
-                                    onChange={(e) => setQrToken(e.target.value)}
-                                    placeholder="Escanea o ingresa el código"
+                                    value={searchValue}
+                                    onChange={(e) => setSearchValue(searchMode === 'plate' ? e.target.value.toUpperCase() : e.target.value)}
+                                    placeholder={searchMode === 'token' ? 'Escanea o ingresa el código' : 'Ej: ABC123'}
                                     autoFocus
-                                    style={{
-                                        width: '100%',
-                                        padding: '12px 16px',
-                                        fontSize: '16px',
-                                        border: '2px solid #e0e0e0',
-                                        borderRadius: '8px',
-                                        outline: 'none',
-                                        transition: 'border-color 0.3s',
-                                    }}
-                                    onFocus={(e) => (e.target.style.borderColor = '#e74c3c')}
-                                    onBlur={(e) => (e.target.style.borderColor = '#e0e0e0')}
+                                    className={styles.input}
                                 />
                             </div>
 
-                            {error && (
-                                <div
-                                    style={{
-                                        padding: '12px',
-                                        background: '#fee',
-                                        color: '#c33',
-                                        borderRadius: '8px',
-                                        marginBottom: '16px',
-                                        fontSize: '14px',
-                                    }}
+                            {searchMode === 'token' && (
+                                <button
+                                    type="button"
+                                    className={styles.scanButton}
+                                    onClick={() => setScannerOpen(true)}
                                 >
-                                    ⚠️ {error}
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                        <circle cx="12" cy="13" r="4"/>
+                                    </svg>
+                                    Escanear QR con cámara
+                                </button>
+                            )}
+
+                            {error && (
+                                <div className={styles.errorBox}>
+                                    {error}
                                 </div>
                             )}
 
                             <button
                                 type="submit"
                                 disabled={loading}
-                                style={{
-                                    width: '100%',
-                                    padding: '16px',
-                                    background: loading ? '#ccc' : '#e74c3c',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '8px',
-                                    fontSize: '16px',
-                                    fontWeight: '600',
-                                    cursor: loading ? 'not-allowed' : 'pointer',
-                                    transition: 'background 0.3s',
-                                }}
+                                className={styles.submitButton}
                             >
-                                {loading ? 'Procesando...' : '🚀 Procesar Salida'}
+                                {loading ? 'Procesando...' : 'Procesar Salida'}
                             </button>
                         </form>
 
                         {ticket && (
                             <button
                                 onClick={handleNewExit}
-                                style={{
-                                    width: '100%',
-                                    padding: '12px',
-                                    background: '#f0f0f0',
-                                    color: '#333',
-                                    border: 'none',
-                                    borderRadius: '8px',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    cursor: 'pointer',
-                                    marginTop: '16px',
-                                }}
+                                className={styles.newExitButton}
                             >
-                                ➕ Nueva Salida
+                                Nueva Salida
                             </button>
                         )}
                     </div>
@@ -239,14 +270,14 @@ export default function ExitPage() {
                             <div className={styles.emptyState}>
                                 <div className={styles.emptyIcon}>📋</div>
                                 <p className={styles.emptyText}>
-                                    Ingresa un código QR para procesar la salida
+                                    Escanea un QR o ingresa una placa para procesar la salida
                                 </p>
                             </div>
                         ) : (
                             <div className={styles.ticketSummary}>
                                 <div className={styles.summaryHeader}>
-                                    <h3 className={styles.summaryTitle}>Ticket #{ticket.id}</h3>
-                                    <span className={styles.statusBadge}>{ticket.status === 'PAID' ? '✅ PAGADO' : '⏳ PENDIENTE'}</span>
+                                    <h3 className={styles.summaryTitle}>{ticket.plate_number}</h3>
+                                    <span className={styles.statusBadge}>{ticket.status === 'PAID' ? 'PAGADO' : 'PENDIENTE'}</span>
                                 </div>
 
                                 <div className={styles.summaryGrid}>
@@ -257,7 +288,11 @@ export default function ExitPage() {
 
                                     <div className={styles.summaryItem}>
                                         <span className={styles.summaryLabel}>Tipo de Vehículo</span>
-                                        <span className={styles.summaryValue}>{ticket.vehicle_type}</span>
+                                        <span className={styles.summaryValue}>
+                                            {ticket.vehicle_type === 'CAR' && 'Automóvil'}
+                                            {ticket.vehicle_type === 'MOTORCYCLE' && 'Motocicleta'}
+                                            {ticket.vehicle_type === 'BICYCLE' && 'Bicicleta'}
+                                        </span>
                                     </div>
 
                                     <div className={styles.summaryItem}>
@@ -272,7 +307,7 @@ export default function ExitPage() {
 
                                     <div className={styles.summaryItem}>
                                         <span className={styles.summaryLabel}>Tiempo de Estadía</span>
-                                        <span className={styles.summaryValue}>{formatDuration(String(ticket?.duration_ms))}</span>
+                                        <span className={styles.summaryValue}>{formatDuration(ticket?.duration_formatted)}</span>
                                     </div>
 
                                     <div className={styles.summaryItem}>
@@ -283,19 +318,8 @@ export default function ExitPage() {
 
                                 <div className={styles.paymentSection}>
                                     {paymentSuccess && (
-                                        <div
-                                            style={{
-                                                padding: '16px',
-                                                background: '#d4edda',
-                                                color: '#155724',
-                                                borderRadius: '8px',
-                                                marginBottom: '16px',
-                                                textAlign: 'center',
-                                                fontWeight: '600',
-                                                fontSize: '15px',
-                                            }}
-                                        >
-                                            ✅ Pago registrado exitosamente
+                                        <div className={styles.successBox}>
+                                            Pago registrado exitosamente
                                         </div>
                                     )}
                                     <button
@@ -304,10 +328,10 @@ export default function ExitPage() {
                                         disabled={ticket.status === 'PAID' || processingPayment}
                                     >
                                         {processingPayment
-                                            ? '⏳ Procesando...'
+                                            ? 'Procesando...'
                                             : ticket.status === 'PAID'
-                                                ? '✅ Ya Pagado'
-                                                : '💳 Registrar Pago'}
+                                                ? 'Ya Pagado'
+                                                : 'Registrar Pago'}
                                     </button>
                                 </div>
                             </div>
@@ -315,6 +339,12 @@ export default function ExitPage() {
                     </div>
                 </div>
             </div>
+
+            <QrScanner
+                isOpen={scannerOpen}
+                onScan={handleQrScan}
+                onClose={() => setScannerOpen(false)}
+            />
         </div>
     );
 }

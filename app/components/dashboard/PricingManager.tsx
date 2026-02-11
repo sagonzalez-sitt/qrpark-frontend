@@ -158,6 +158,7 @@ export default function PricingManager() {
       setError('Ya tienes configurados todos los tipos de vehículos disponibles');
       return;
     }
+    setNewVehicleType(availableVehicleTypes[0]);
     setShowNewForm(true);
     setError(null);
   };

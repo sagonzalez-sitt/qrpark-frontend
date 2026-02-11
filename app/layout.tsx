@@ -1,32 +1,18 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type {Metadata} from "next";
+import {satoshi} from "./fonts/fonts";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "QRPark - Sistema de Gestión de Parqueadero",
-  description: "Sistema híbrido de gestión de parqueadero con códigos QR",
+    title: "ParkQR - Sistema de Gestion de Parqueadero",
+    description: "Sistema hibrido de gestion de parqueadero con codigos QR",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
-    </html>
-  );
+export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
+    return (
+        <html lang="es" className={satoshi.variable}>
+            <body>
+                {children}
+            </body>
+        </html>
+    );
 }

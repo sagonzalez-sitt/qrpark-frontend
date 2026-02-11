@@ -4,7 +4,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,19 +24,19 @@
 }
 
 .modal {
-  background: white;
-  border-radius: 16px;
+  background: var(--surface-card);
+  border-radius: var(--radius-xl);
   max-width: 800px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-xl);
   animation: slideUp 0.3s ease-out;
 }
 
 @keyframes slideUp {
   from {
-    transform: translateY(30px);
+    transform: translateY(24px);
     opacity: 0;
   }
   to {
@@ -48,35 +49,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 28px;
-  border-bottom: 2px solid #f0f0f0;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .title {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
+  letter-spacing: -0.01em;
 }
 
 .closeButton {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: none;
-  background: #f0f0f0;
-  color: #666;
-  font-size: 20px;
+  background: var(--surface-subtle);
+  color: var(--text-muted);
+  font-size: 18px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: all var(--transition-base);
 }
 
 .closeButton:hover {
-  background: #e74c3c;
-  color: white;
+  background: var(--color-danger);
+  color: var(--text-inverse);
 }
 
 .loading {
@@ -85,16 +87,16 @@
   align-items: center;
   justify-content: center;
   padding: 60px 20px;
-  gap: 16px;
+  gap: 14px;
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f0f0f0;
-  border-top: 4px solid #667eea;
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-light);
+  border-top: 3px solid var(--brand-accent);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -107,41 +109,44 @@
 }
 
 .error {
-  padding: 40px 28px;
+  padding: 40px 24px;
   text-align: center;
-  color: #e74c3c;
+  color: var(--color-danger);
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .content {
-  padding: 28px;
+  padding: 24px;
 }
 
 .topSection {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 28px;
-  margin-bottom: 28px;
-  padding-bottom: 28px;
-  border-bottom: 2px solid #f0f0f0;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .qrSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .qrImage {
-  width: 200px;
-  height: 200px;
-  border-radius: 12px;
-  border: 3px solid #f0f0f0;
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius-md);
+  border: 3px solid var(--brand-accent);
+  box-shadow: var(--shadow-accent);
 }
 
 .qrLabel {
-  font-size: 12px;
-  color: #999;
+  font-size: 11px;
+  color: var(--text-muted);
   font-weight: 500;
   text-align: center;
 }
@@ -149,102 +154,103 @@
 .summarySection {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   justify-content: center;
 }
 
 .plateDisplay {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .plateLabel {
-  font-size: 12px;
-  color: #999;
+  font-size: 11px;
+  color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
 }
 
 .plateValue {
-  font-size: 36px;
-  font-weight: 700;
-  color: #667eea;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--brand-accent);
   letter-spacing: 2px;
 }
 
 .statusBadge {
   display: inline-block;
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
   font-weight: 700;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--text-inverse);
+  letter-spacing: 0.02em;
   width: fit-content;
 }
 
 .feeDisplay {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .feeLabel {
-  font-size: 12px;
-  color: #999;
+  font-size: 11px;
+  color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
 }
 
 .feeValue {
-  font-size: 32px;
-  font-weight: 700;
-  color: #2ecc71;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-success);
+  letter-spacing: -0.02em;
 }
 
 .detailsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 14px;
 }
 
 .detailItem {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 16px;
-  background: #f8f9fa;
-  border-radius: 10px;
+  gap: 4px;
+  padding: 14px;
+  background: var(--surface-subtle);
+  border-radius: var(--radius-sm);
 }
 
 .detailLabel {
-  font-size: 11px;
-  color: #999;
+  font-size: 10px;
+  color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
 }
 
 .detailValue {
-  font-size: 15px;
-  color: #333;
+  font-size: 14px;
+  color: var(--text-primary);
   font-weight: 600;
   word-break: break-word;
 }
 
 .detailValueMono {
-  font-size: 13px;
-  color: #667eea;
+  font-size: 12px;
+  color: var(--brand-accent);
   font-weight: 600;
-  font-family: 'Courier New', monospace;
+  font-family: 'SF Mono', 'Fira Code', monospace;
   word-break: break-all;
-  background: white;
-  padding: 8px;
-  border-radius: 6px;
+  background: var(--surface-card);
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
 }
 
 @media (max-width: 768px) {
@@ -258,16 +264,16 @@
   }
 
   .qrImage {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
   }
 
   .plateValue {
-    font-size: 28px;
+    font-size: 26px;
   }
 
   .feeValue {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .detailsGrid {

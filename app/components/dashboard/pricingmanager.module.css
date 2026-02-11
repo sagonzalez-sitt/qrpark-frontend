@@ -1,8 +1,9 @@
 .container {
-  background: white;
-  border-radius: 12px;
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-xs);
 }
 
 .header {
@@ -13,63 +14,68 @@
 }
 
 .title {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
+  letter-spacing: -0.01em;
 }
 
 .addButton {
-  padding: 10px 16px;
-  background: #667eea;
-  color: white;
+  padding: 8px 16px;
+  background: var(--brand-accent);
+  color: var(--text-inverse);
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all var(--transition-base);
+  font-family: inherit;
 }
 
 .addButton:hover {
-  background: #5568d3;
+  background: var(--brand-accent-hover);
+  box-shadow: var(--shadow-accent);
 }
 
 .loading {
   text-align: center;
   padding: 40px;
-  color: #999;
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
 .error {
-  padding: 12px 16px;
-  background: #fee;
-  color: #c33;
-  border-radius: 8px;
+  padding: 12px 14px;
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+  border-radius: var(--radius-sm);
   margin-bottom: 16px;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .newForm {
-  background: #f8f9fa;
-  border: 2px dashed #667eea;
-  border-radius: 12px;
+  background: var(--surface-subtle);
+  border: 2px dashed var(--brand-accent);
+  border-radius: var(--radius-md);
   padding: 20px;
   margin-bottom: 20px;
 }
 
 .formTitle {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  color: #333;
-  margin: 0 0 16px 0;
+  color: var(--text-primary);
+  margin: 0 0 14px 0;
 }
 
 .formGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 14px;
+  margin-bottom: 14px;
 }
 
 .formGroup {
@@ -79,94 +85,104 @@
 }
 
 .label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  color: #666;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .select,
 .input {
   padding: 10px 12px;
-  border: 2px solid #e0e0e0;
-  border-radius: 6px;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
   font-size: 14px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all var(--transition-base);
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--surface-card);
 }
 
 .select:focus,
 .input:focus {
-  border-color: #667eea;
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .formActions,
 .editActions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: flex-end;
 }
 
 .saveButton {
-  padding: 10px 20px;
-  background: #2ecc71;
-  color: white;
+  padding: 8px 18px;
+  background: var(--color-success);
+  color: var(--text-inverse);
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all var(--transition-base);
+  font-family: inherit;
 }
 
 .saveButton:hover {
-  background: #27ae60;
+  background: var(--color-success-dark);
 }
 
 .cancelButton {
-  padding: 10px 20px;
-  background: #95a5a6;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 8px 18px;
+  background: var(--surface-subtle);
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all var(--transition-base);
+  font-family: inherit;
 }
 
 .cancelButton:hover {
-  background: #7f8c8d;
+  background: var(--surface-hover);
+  color: var(--text-secondary);
 }
 
 .configList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .empty {
   text-align: center;
   padding: 40px;
-  color: #999;
-  font-style: italic;
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
 .configItem {
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 16px;
-  transition: border-color 0.3s;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  transition: all var(--transition-base);
 }
 
 .configItem:hover {
-  border-color: #667eea;
+  border-color: var(--brand-accent-light);
+  box-shadow: var(--shadow-xs);
 }
 
 .configHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .vehicleInfo {
@@ -176,57 +192,62 @@
 }
 
 .icon {
-  font-size: 28px;
+  font-size: 26px;
 }
 
 .vehicleName {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .editButton {
-  padding: 6px 12px;
-  background: #3498db;
-  color: white;
+  padding: 5px 12px;
+  background: var(--brand-accent-subtle);
+  color: var(--brand-accent);
   border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all var(--transition-base);
+  font-family: inherit;
 }
 
 .editButton:hover {
-  background: #2980b9;
+  background: var(--brand-accent);
+  color: var(--text-inverse);
 }
 
 .deleteButton {
-  padding: 6px 12px;
-  background: #e74c3c;
-  color: white;
+  padding: 5px 12px;
+  background: var(--color-danger-light);
+  color: var(--color-danger);
   border: none;
-  border-radius: 6px;
-  font-size: 13px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all var(--transition-base);
+  font-family: inherit;
 }
 
 .deleteButton:hover {
-  background: #c0392b;
+  background: var(--color-danger);
+  color: var(--text-inverse);
 }
 
 .editForm {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #e0e0e0;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
 }
 
 .editGroup {
@@ -240,19 +261,19 @@
   align-items: center;
   gap: 8px;
   padding-top: 8px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border-light);
 }
 
 .priceLabel {
-  font-size: 13px;
-  color: #999;
+  font-size: 12px;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
 .priceValue {
-  font-size: 20px;
-  font-weight: 700;
-  color: #2ecc71;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-success);
 }
 
 @media (max-width: 768px) {
@@ -262,7 +283,7 @@
 
   .header {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     align-items: flex-start;
   }
 

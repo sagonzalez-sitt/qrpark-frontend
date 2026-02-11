@@ -1,56 +1,74 @@
 .container {
   min-height: 100vh;
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 24px;
+  background: var(--gradient-dark);
+  position: relative;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .content {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .backButton {
-  display: inline-block;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-inverse);
+  border-radius: var(--radius-sm);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   margin-bottom: 20px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all var(--transition-base);
 }
 
 .backButton:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .header {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(20px);
-  color: white;
-  padding: 32px;
-  border-radius: 12px;
+  color: var(--text-inverse);
+  padding: 28px 32px;
+  border-radius: var(--radius-lg);
   margin-bottom: 24px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .title {
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
-  font-size: 16px;
-  opacity: 0.95;
+  font-size: 14px;
+  opacity: 0.7;
+  font-weight: 400;
 }
 
 .mainContent {
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: 380px 1fr;
   gap: 24px;
 }
 
@@ -61,57 +79,219 @@
 }
 
 .searchCard {
-  background: white;
-  border-radius: 12px;
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
 }
 
 .searchTitle {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 700;
-  color: #333;
-  margin-bottom: 8px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
 }
 
 .searchDescription {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 24px;
-  line-height: 1.5;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.searchToggle {
+  display: flex;
+  background: var(--surface-subtle);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  margin-bottom: 20px;
+  gap: 3px;
+}
+
+.toggleOption {
+  flex: 1;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.toggleOption:hover {
+  color: var(--text-secondary);
+}
+
+.toggleOptionActive {
+  background: var(--surface-card);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-xs);
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: all var(--transition-base);
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--surface-card);
+}
+
+.input:focus {
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.scanActions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.scanButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.scanButton:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+.uploadButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.uploadButton:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+.fileInputHidden {
+  display: none;
+}
+
+.errorBox {
+  padding: 12px 14px;
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 14px;
+  background: var(--brand-accent);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--brand-accent-hover);
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  background: var(--border-medium);
+  cursor: not-allowed;
 }
 
 .infoCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
   padding: 20px;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-inverse);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .infoTitle {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   margin-bottom: 12px;
 }
 
 .infoList {
   margin: 0;
-  padding-left: 20px;
-  font-size: 14px;
+  padding-left: 18px;
+  font-size: 13px;
   line-height: 1.8;
+  opacity: 0.8;
 }
 
 .infoList li {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .resultSection {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
   min-height: 400px;
   display: flex;
   flex-direction: column;
@@ -128,21 +308,21 @@
 }
 
 .emptyIcon {
-  font-size: 80px;
+  font-size: 64px;
   margin-bottom: 16px;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .emptyText {
-  color: #999;
-  font-size: 16px;
-  max-width: 300px;
+  color: var(--text-muted);
+  font-size: 14px;
+  max-width: 280px;
 }
 
 .ticketCard {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .ticketHeader {
@@ -150,92 +330,104 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 16px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .ticketTitle {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
-  color: #333;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 .statusBadge {
-  padding: 8px 16px;
-  color: white;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 600;
+  padding: 6px 14px;
+  color: var(--text-inverse);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .qrSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px;
-  background: #f8f9fa;
-  border-radius: 12px;
+  padding: 20px;
+  background: var(--surface-subtle);
+  border-radius: var(--radius-md);
 }
 
 .qrImage {
-  width: 200px;
-  height: 200px;
-  border-radius: 8px;
-  margin-bottom: 12px;
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius-sm);
+  border: 3px solid var(--brand-accent);
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-accent);
 }
 
 .qrText {
-  font-size: 14px;
-  color: #666;
+  font-size: 13px;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
 .ticketDetails {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .detailRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .detailRowHighlight {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
+  padding: 16px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
   margin-top: 8px;
 }
 
 .detailRowHighlight .detailLabel {
-  color: white;
-  font-size: 14px;
+  color: var(--text-inverse);
+  font-size: 13px;
 }
 
 .detailLabel {
-  font-size: 13px;
-  color: #999;
+  font-size: 11px;
+  color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
 }
 
 .detailValue {
-  font-size: 16px;
-  color: #333;
+  font-size: 14px;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .detailValueLarge {
-  font-size: 32px;
-  color: white;
-  font-weight: 700;
+  font-size: 28px;
+  color: var(--text-inverse);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.feeNote {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 4px;
 }
 
 @media (max-width: 768px) {
@@ -248,15 +440,15 @@
   }
 
   .title {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .qrImage {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
   }
 
   .detailValueLarge {
-    font-size: 24px;
+    font-size: 22px;
   }
 }

@@ -44,7 +44,7 @@ export default function QRTypeSelector() {
 
     const link = document.createElement('a');
     link.href = qrDataUrl;
-    link.download = 'qrpark-estatico.png';
+    link.download = 'parkqr-estatico.png';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

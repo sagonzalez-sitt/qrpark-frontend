@@ -1,105 +1,120 @@
 .container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--gradient-dark);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  position: relative;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .content {
-  max-width: 600px;
+  max-width: 560px;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .loadingContainer,
 .errorContainer {
   text-align: center;
-  color: white;
+  color: var(--text-inverse);
 }
 
 .spinner {
-  width: 60px;
-  height: 60px;
-  border: 6px solid rgba(255, 255, 255, 0.2);
-  border-top-color: white;
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--brand-accent-light);
   border-radius: 50%;
-  margin: 0 auto 24px auto;
-  animation: spin 1s linear infinite;
+  margin: 0 auto 20px auto;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 .loadingText {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 .errorIcon {
-  font-size: 80px;
-  margin-bottom: 24px;
+  font-size: 64px;
+  margin-bottom: 20px;
 }
 
 .errorTitle {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
 }
 
 .errorMessage {
-  font-size: 18px;
-  margin-bottom: 16px;
-  opacity: 0.9;
+  font-size: 15px;
+  margin-bottom: 12px;
+  opacity: 0.7;
 }
 
 .errorHint {
-  font-size: 16px;
-  opacity: 0.8;
+  font-size: 14px;
+  opacity: 0.5;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 32px;
-  color: white;
+  margin-bottom: 28px;
+  color: var(--text-inverse);
 }
 
 .logo {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #FFFFFF 0%, #C7D2FE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .title {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 12px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
-  font-size: 16px;
-  font-weight: 300;
-  opacity: 0.95;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.6;
 }
 
 .formCard,
 .successCard {
-  background: white;
-  border-radius: 16px;
+  background: var(--surface-card);
+  border-radius: var(--radius-xl);
   padding: 32px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  animation: slideUp 0.5s ease-out;
+  box-shadow: var(--shadow-xl);
+  animation: slideUp 0.4s ease-out;
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -110,8 +125,8 @@
 .steps {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 32px;
-  gap: 16px;
+  margin-bottom: 28px;
+  gap: 12px;
 }
 
 .step {
@@ -120,147 +135,158 @@
 }
 
 .stepNumber {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  width: 36px;
+  height: 36px;
+  background: var(--gradient-primary);
+  color: var(--text-inverse);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
-  margin: 0 auto 8px auto;
+  margin: 0 auto 6px auto;
 }
 
 .stepText {
-  font-size: 13px;
-  color: #666;
-  font-weight: 600;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 .form {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .formGroup {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .label {
   display: block;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 10px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
 }
 
 .input {
   width: 100%;
-  padding: 14px 16px;
-  fontSize: 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
   outline: none;
-  transition: all 0.3s;
+  transition: all var(--transition-base);
   font-family: inherit;
+  color: var(--text-primary);
+  background: var(--surface-card);
 }
 
 .input:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
 }
 
 .vehicleOptions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .vehicleOption {
-  background: #f8f9fa;
-  border: 3px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 16px 8px;
+  background: var(--surface-subtle);
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px 8px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all var(--transition-base);
   text-align: center;
+  font-family: inherit;
+  color: var(--text-primary);
 }
 
 .vehicleOption:hover {
-  border-color: #667eea;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+  border-color: var(--brand-accent-light);
+  background: var(--brand-accent-subtle);
 }
 
 .vehicleOption.selected {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
-  color: white;
-  transform: scale(1.05);
+  background: var(--gradient-primary);
+  border-color: var(--brand-accent);
+  color: var(--text-inverse);
+  transform: scale(1.03);
+  box-shadow: var(--shadow-accent);
 }
 
 .vehicleIcon {
-  font-size: 36px;
-  margin-bottom: 8px;
+  font-size: 32px;
+  margin-bottom: 6px;
 }
 
 .vehicleLabel {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .errorBox {
-  padding: 14px;
-  background: #fee;
-  color: #c33;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  font-size: 14px;
+  padding: 12px 14px;
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  font-size: 13px;
   font-weight: 600;
 }
 
 .submitButton {
   width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  padding: 14px;
+  background: var(--brand-accent);
+  color: var(--text-inverse);
   border: none;
-  border-radius: 10px;
-  font-size: 17px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all var(--transition-base);
+  font-family: inherit;
 }
 
 .submitButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  background: var(--brand-accent-hover);
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-1px);
 }
 
 .submitButton:disabled {
-  background: #ccc;
+  background: var(--border-medium);
   cursor: not-allowed;
   transform: none;
 }
 
 .infoBox {
   display: flex;
-  gap: 12px;
-  padding: 16px;
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-  border-radius: 10px;
-  border-left: 4px solid #2196f3;
+  gap: 10px;
+  padding: 14px;
+  background: var(--brand-accent-subtle);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--brand-accent);
 }
 
 .infoIcon {
-  font-size: 24px;
+  font-size: 20px;
   flex-shrink: 0;
 }
 
 .infoText {
-  font-size: 13px;
-  color: #333;
+  font-size: 12px;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
@@ -269,51 +295,44 @@
 }
 
 .successIcon {
-  font-size: 64px;
-  margin-bottom: 16px;
-  animation: successPop 0.6s ease-out;
+  font-size: 56px;
+  margin-bottom: 12px;
+  animation: successPop 0.5s ease-out;
 }
 
 @keyframes successPop {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .successTitle {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
-  color: #333;
-  margin-bottom: 8px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
 }
 
 .successMessage {
-  font-size: 16px;
-  color: #666;
+  font-size: 14px;
+  color: var(--text-muted);
   margin-bottom: 24px;
 }
 
 .ticketInfo {
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 24px;
+  background: var(--surface-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
 .ticketRow {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .ticketRow:last-child {
@@ -321,94 +340,97 @@
 }
 
 .ticketLabel {
-  font-size: 14px;
-  color: #666;
-  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 .ticketValue {
-  font-size: 14px;
-  color: #333;
-  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .qrContainer {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .qrTitle {
-  font-size: 18px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 16px;
-}
-
-.qrImage {
-  width: 250px;
-  height: 250px;
-  border-radius: 12px;
-  border: 3px solid #e0e0e0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
   margin-bottom: 12px;
 }
 
+.qrImage {
+  width: 220px;
+  height: 220px;
+  border-radius: var(--radius-md);
+  border: 3px solid var(--brand-accent);
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-accent);
+}
+
 .qrInstruction {
-  font-size: 14px;
-  color: #666;
-  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 .actions {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .downloadButton {
-  padding: 14px;
+  padding: 12px;
   border: none;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 700;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
-  background: #2ecc71;
-  color: white;
+  transition: all var(--transition-base);
+  background: var(--color-success);
+  color: var(--text-inverse);
+  font-family: inherit;
 }
 
 .downloadButton:hover {
-  background: #27ae60;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+  background: var(--color-success-dark);
+  box-shadow: var(--shadow-success);
+  transform: translateY(-1px);
 }
 
 .warningBox {
   display: flex;
-  gap: 12px;
-  padding: 16px;
-  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-  border-radius: 10px;
-  border-left: 4px solid #f39c12;
+  gap: 10px;
+  padding: 14px;
+  background: var(--color-warning-light);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-warning);
   text-align: left;
 }
 
 .warningIcon {
-  font-size: 24px;
+  font-size: 20px;
   flex-shrink: 0;
 }
 
 .warningText {
-  font-size: 13px;
-  color: #333;
+  font-size: 12px;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
 .footer {
   text-align: center;
-  margin-top: 24px;
-  color: white;
-  opacity: 0.8;
-  font-size: 14px;
+  margin-top: 20px;
+  color: var(--text-inverse);
+  opacity: 0.35;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {
@@ -422,31 +444,34 @@
   }
 
   .logo {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   .title {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .subtitle {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .steps {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .step {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-align: left;
   }
 
   .stepNumber {
     margin: 0;
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
   }
 
   .vehicleOptions {
@@ -456,18 +481,18 @@
   .vehicleOption {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 16px;
+    gap: 14px;
+    padding: 12px 14px;
     text-align: left;
   }
 
   .vehicleIcon {
-    font-size: 32px;
+    font-size: 28px;
     margin: 0;
   }
 
   .qrImage {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
   }
 }

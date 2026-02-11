@@ -1,7 +1,7 @@
 .container {
   min-height: 100vh;
-  padding: 20px;
-  background: #f5f5f5;
+  padding: 24px;
+  background: var(--surface-bg);
 }
 
 .content {
@@ -10,10 +10,10 @@
 }
 
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 24px;
-  border-radius: 12px;
+  background: var(--gradient-primary);
+  color: var(--text-inverse);
+  padding: 24px 32px;
+  border-radius: var(--radius-lg);
   margin-bottom: 24px;
   display: flex;
   justify-content: space-between;
@@ -21,31 +21,35 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   margin-bottom: 4px;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
   font-size: 14px;
-  opacity: 0.9;
+  opacity: 0.8;
+  font-weight: 400;
 }
 
 .backButton {
   padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: none;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-inverse);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   text-decoration: none;
   display: inline-block;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(8px);
 }
 
 .backButton:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .mainGrid {
@@ -55,17 +59,18 @@
 }
 
 .operatorPanel {
-  background: white;
-  border-radius: 12px;
-  padding: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
 }
 
 .displaySimulation {
-  background: #1a1a1a;
-  border-radius: 12px;
+  background: var(--brand-primary);
+  border-radius: var(--radius-lg);
   padding: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
   min-height: 600px;
   display: flex;
   flex-direction: column;
@@ -74,18 +79,20 @@
 }
 
 .sectionTitle {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 600;
   margin-bottom: 24px;
-  color: #333;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 .displayTitle {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   margin-bottom: 24px;
-  color: #fff;
+  color: var(--text-inverse);
   text-align: center;
+  opacity: 0.8;
 }
 
 @media (max-width: 1024px) {
@@ -95,5 +102,17 @@
 
   .displaySimulation {
     min-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 22px;
   }
 }

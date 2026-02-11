@@ -1,7 +1,7 @@
 .container {
   min-height: 100vh;
-  padding: 20px;
-  background: #f5f5f5;
+  padding: 24px;
+  background: var(--surface-bg);
 }
 
 .content {
@@ -10,68 +10,234 @@
 }
 
 .backButton {
-  display: inline-block;
-  padding: 10px 20px;
-  background: white;
-  color: #333;
-  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: var(--surface-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-base);
 }
 
 .backButton:hover {
-  background: #f5f5f5;
+  background: var(--surface-subtle);
+  border-color: var(--border-medium);
+  transform: translateX(-2px);
 }
 
 .header {
-  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-  color: white;
-  padding: 32px;
-  border-radius: 12px;
+  background: var(--gradient-danger);
+  color: var(--text-inverse);
+  padding: 28px 32px;
+  border-radius: var(--radius-lg);
   margin-bottom: 24px;
   text-align: center;
 }
 
 .title {
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
-  font-size: 16px;
-  opacity: 0.95;
+  font-size: 14px;
+  opacity: 0.85;
+  font-weight: 400;
 }
 
 .mainContent {
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: 380px 1fr;
   gap: 24px;
 }
 
 .formSection {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
   height: fit-content;
 }
 
 .summarySection {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
 }
 
 .sectionTitle {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.searchToggle {
+  display: flex;
+  background: var(--surface-subtle);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  margin-bottom: 20px;
+  gap: 3px;
+}
+
+.toggleOption {
+  flex: 1;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.toggleOption:hover {
+  color: var(--text-secondary);
+}
+
+.toggleOptionActive {
+  background: var(--surface-card);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-xs);
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: all var(--transition-base);
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--surface-card);
+}
+
+.input:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.errorBox {
+  padding: 12px 14px;
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.scanButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+  margin-bottom: 16px;
+}
+
+.scanButton:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 14px;
+  background: var(--color-danger);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--color-danger-dark);
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  background: var(--border-medium);
+  cursor: not-allowed;
+}
+
+.newExitButton {
+  width: 100%;
+  padding: 12px;
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 14px;
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.newExitButton:hover {
+  background: var(--surface-hover);
+}
+
+.successBox {
+  padding: 14px;
+  background: var(--color-success-light);
+  color: var(--color-success-dark);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .emptyState {
@@ -84,20 +250,20 @@
 }
 
 .emptyIcon {
-  font-size: 64px;
+  font-size: 56px;
   margin-bottom: 16px;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .emptyText {
-  color: #999;
-  font-size: 16px;
+  color: var(--text-muted);
+  font-size: 14px;
 }
 
 .ticketSummary {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .summaryHeader {
@@ -105,28 +271,30 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 16px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .summaryTitle {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
-  color: #333;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 .statusBadge {
-  padding: 6px 12px;
-  background: #e8f5e9;
-  color: #2e7d32;
-  border-radius: 6px;
+  padding: 6px 14px;
+  background: var(--color-success-light);
+  color: var(--color-success-dark);
+  border-radius: var(--radius-full);
   font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .summaryGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 16px;
 }
 
 .summaryItem {
@@ -136,49 +304,52 @@
 }
 
 .summaryLabel {
-  font-size: 12px;
-  color: #999;
-  font-weight: 500;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
 }
 
 .summaryValue {
-  font-size: 16px;
-  color: #333;
+  font-size: 15px;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .summaryValueLarge {
   font-size: 28px;
-  color: #e74c3c;
-  font-weight: 700;
+  color: var(--color-danger);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .paymentSection {
   padding-top: 16px;
-  border-top: 2px solid #f0f0f0;
+  border-top: 1px solid var(--border-light);
 }
 
 .payButton {
   width: 100%;
-  padding: 16px;
-  background: #27ae60;
-  color: white;
+  padding: 14px;
+  background: var(--color-success);
+  color: var(--text-inverse);
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all var(--transition-base);
 }
 
 .payButton:hover:not(:disabled) {
-  background: #229954;
+  background: var(--color-success-dark);
+  box-shadow: var(--shadow-success);
+  transform: translateY(-1px);
 }
 
 .payButton:disabled {
-  background: #95a5a6;
+  background: var(--border-medium);
   cursor: not-allowed;
 }
 
@@ -189,5 +360,13 @@
 
   .summaryGrid {
     grid-template-columns: 1fr;
+  }
+
+  .header {
+    padding: 24px 20px;
+  }
+
+  .title {
+    font-size: 22px;
   }
 }

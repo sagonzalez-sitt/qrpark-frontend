@@ -1,0 +1,78 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal {
+    background: var(--surface-card);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 420px;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.closeButton {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: var(--surface-subtle);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-secondary);
+    transition: all var(--transition-base);
+}
+
+.closeButton:hover {
+    background: var(--surface-hover);
+    color: var(--text-primary);
+}
+
+.reader {
+    width: 100%;
+    min-height: 300px;
+}
+
+.reader video {
+    border-radius: 0 !important;
+}
+
+.hint {
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    border-top: 1px solid var(--border-light);
+}
+
+@media (max-width: 480px) {
+    .modal {
+        max-width: 100%;
+    }
+}

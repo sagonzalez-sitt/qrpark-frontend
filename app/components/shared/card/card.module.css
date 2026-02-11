@@ -1,11 +1,11 @@
 .card {
-  background: #ffffff;
-  border-radius: 12px;
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-xs);
+  transition: all var(--transition-base);
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,35 +16,37 @@
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  border-color: #4a90e2;
+  box-shadow: var(--shadow-md);
+  border-color: var(--brand-accent);
 }
 
 .icon {
-  font-size: 48px;
-  margin-bottom: 16px;
+  font-size: 44px;
+  margin-bottom: 14px;
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
 }
 
 .description {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.5;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 .badge {
   display: inline-block;
-  background: #4a90e2;
-  color: white;
+  background: var(--brand-accent);
+  color: var(--text-inverse);
   font-size: 11px;
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: var(--radius-full);
   margin-top: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }

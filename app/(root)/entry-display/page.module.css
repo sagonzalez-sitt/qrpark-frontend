@@ -1,8 +1,20 @@
 .container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: var(--gradient-dark);
   position: relative;
   overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .backButton {
@@ -10,25 +22,29 @@
   top: 20px;
   left: 20px;
   padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-inverse);
+  border-radius: var(--radius-sm);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 100;
+  transition: all var(--transition-base);
 }
 
 .backButton:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .displayContent {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  color: white;
+  color: var(--text-inverse);
+  position: relative;
+  z-index: 1;
 }
 
 .header {
@@ -45,13 +61,17 @@
 }
 
 .logoIcon {
-  font-size: 48px;
+  font-size: 40px;
 }
 
 .logoText {
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -1px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #FFFFFF 0%, #C7D2FE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .clock {
@@ -59,16 +79,19 @@
 }
 
 .time {
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 700;
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+  opacity: 0.9;
 }
 
 .date {
-  font-size: 16px;
-  opacity: 0.9;
+  font-size: 14px;
+  opacity: 0.5;
   text-transform: capitalize;
+  font-weight: 500;
 }
 
 .waitingState {
@@ -86,31 +109,33 @@
 }
 
 .welcomeTitle {
-  font-size: 56px;
-  font-weight: 700;
+  font-size: 48px;
+  font-weight: 800;
   margin-bottom: 16px;
-  line-height: 1.2;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .welcomeSubtitle {
-  font-size: 24px;
-  opacity: 0.9;
+  font-size: 20px;
+  opacity: 0.7;
+  font-weight: 400;
 }
 
 .instructionsCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 60px 80px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(24px);
+  border-radius: var(--radius-2xl);
+  padding: 56px 72px;
   text-align: center;
-  max-width: 800px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  max-width: 700px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .iconLarge {
-  font-size: 120px;
+  font-size: 96px;
   margin-bottom: 24px;
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -119,54 +144,56 @@
     opacity: 1;
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.04);
     opacity: 0.8;
   }
 }
 
 .instructionsTitle {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
 }
 
 .instructionsText {
-  font-size: 18px;
-  opacity: 0.9;
+  font-size: 16px;
+  opacity: 0.7;
   line-height: 1.6;
 }
 
 .featuresGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  max-width: 1000px;
+  gap: 16px;
+  max-width: 900px;
   width: 100%;
 }
 
 .featureItem {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-lg);
+  padding: 20px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s, background 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all var(--transition-base);
 }
 
 .featureItem:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .featureIcon {
-  font-size: 48px;
-  margin-bottom: 12px;
+  font-size: 40px;
+  margin-bottom: 10px;
 }
 
 .featureText {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 .loadingDots {
@@ -177,9 +204,9 @@
 }
 
 .loadingDots span {
-  width: 12px;
-  height: 12px;
-  background: white;
+  width: 10px;
+  height: 10px;
+  background: var(--brand-accent-light);
   border-radius: 50%;
   animation: bounce 1.4s ease-in-out infinite;
 }
@@ -194,11 +221,11 @@
 
 @keyframes bounce {
   0%, 80%, 100% {
-    transform: scale(0.8);
-    opacity: 0.5;
+    transform: scale(0.7);
+    opacity: 0.4;
   }
   40% {
-    transform: scale(1.2);
+    transform: scale(1.1);
     opacity: 1;
   }
 }
@@ -210,31 +237,32 @@
   align-items: center;
   justify-content: center;
   padding: 40px 60px;
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .qrMainContent {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 32px;
   width: 100%;
-  max-width: 900px;
+  max-width: 800px;
 }
 
 .qrCard {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 32px;
-  padding: 60px;
+  background: var(--surface-card);
+  border-radius: var(--radius-2xl);
+  padding: 48px;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.6s ease-out;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.5s ease-out;
+  width: 100%;
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -243,54 +271,52 @@
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .scanPrompt {
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 .scanIcon {
-  font-size: 72px;
-  margin-bottom: 16px;
-  animation: pulse 2s ease-in-out infinite;
+  font-size: 56px;
+  margin-bottom: 12px;
+  animation: pulse 2.5s ease-in-out infinite;
 }
 
 .scanTitle {
-  font-size: 42px;
+  font-size: 32px;
   font-weight: 700;
-  color: #1e3c72;
-  margin-bottom: 12px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 
 .scanSubtitle {
-  font-size: 20px;
-  color: #666;
+  font-size: 16px;
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
 .qrImageContainer {
   position: relative;
   display: inline-block;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 .qrImage {
-  width: 450px;
-  height: 450px;
-  border-radius: 24px;
-  border: 8px solid #1e3c72;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  width: 420px;
+  height: 420px;
+  border-radius: var(--radius-xl);
+  border: 6px solid var(--brand-accent);
+  box-shadow: var(--shadow-accent);
   animation: zoomIn 0.5s ease-out;
 }
 
 @keyframes zoomIn {
   from {
-    transform: scale(0.8);
+    transform: scale(0.85);
     opacity: 0;
   }
   to {
@@ -301,30 +327,30 @@
 
 .qrPulse {
   position: absolute;
-  top: -20px;
-  left: -20px;
-  right: -20px;
-  bottom: -20px;
-  border: 4px solid #2a5298;
-  border-radius: 32px;
+  top: -16px;
+  left: -16px;
+  right: -16px;
+  bottom: -16px;
+  border: 3px solid var(--brand-accent-light);
+  border-radius: calc(var(--radius-xl) + 10px);
   animation: pulseRing 2s ease-out infinite;
 }
 
 @keyframes pulseRing {
   0% {
     transform: scale(1);
-    opacity: 1;
+    opacity: 0.6;
   }
   100% {
-    transform: scale(1.1);
+    transform: scale(1.06);
     opacity: 0;
   }
 }
 
 .ticketInfo {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 16px;
-  padding: 24px 32px;
+  background: var(--surface-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px 28px;
 }
 
 .ticketInfoRow {
@@ -335,7 +361,7 @@
 }
 
 .ticketInfoIcon {
-  font-size: 56px;
+  font-size: 48px;
 }
 
 .ticketInfoText {
@@ -343,17 +369,17 @@
 }
 
 .ticketInfoLabel {
-  font-size: 14px;
-  color: #666;
+  font-size: 12px;
+  color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   margin-bottom: 4px;
 }
 
 .ticketInfoValue {
-  font-size: 32px;
-  color: #1e3c72;
+  font-size: 28px;
+  color: var(--brand-accent);
   font-weight: 700;
   letter-spacing: 2px;
 }
@@ -367,59 +393,56 @@
 .stepItem {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .stepNumber {
-  width: 36px;
-  height: 36px;
-  background: #1e3c72;
-  color: white;
+  width: 32px;
+  height: 32px;
+  background: var(--brand-accent);
+  color: var(--text-inverse);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   flex-shrink: 0;
 }
 
 .stepText {
-  font-size: 14px;
-  color: #666;
-  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .waitingForScan {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 24px 48px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  padding: 20px 40px;
   text-align: center;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  animation: fadeIn 1s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 1s ease-out;
 }
 
 .waitingIcon {
-  font-size: 48px;
-  margin-bottom: 12px;
-  animation: rotate 2s linear infinite;
+  font-size: 40px;
+  margin-bottom: 8px;
+  animation: rotate 3s linear infinite;
 }
 
 @keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .waitingText {
-  font-size: 18px;
-  color: white;
-  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-inverse);
+  font-weight: 500;
   margin: 0;
+  opacity: 0.8;
 }
 
 /* Confirming State */
@@ -429,17 +452,17 @@
   align-items: center;
   justify-content: center;
   padding: 40px 60px;
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .successAnimation {
   text-align: center;
-  animation: zoomIn 0.6s ease-out;
+  animation: zoomIn 0.5s ease-out;
 }
 
 .successIcon {
-  font-size: 160px;
-  margin-bottom: 32px;
+  font-size: 140px;
+  margin-bottom: 28px;
   animation: successPop 0.6s ease-out;
 }
 
@@ -449,7 +472,7 @@
     opacity: 0;
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.15);
   }
   100% {
     transform: scale(1);
@@ -458,39 +481,41 @@
 }
 
 .successTitle {
-  font-size: 56px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 16px;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--text-inverse);
+  margin-bottom: 12px;
+  letter-spacing: -0.03em;
 }
 
 .successSubtitle {
-  font-size: 28px;
-  color: white;
-  opacity: 0.95;
-  margin-bottom: 32px;
+  font-size: 24px;
+  color: var(--text-inverse);
+  opacity: 0.85;
+  margin-bottom: 28px;
+  font-weight: 400;
 }
 
 .successSubtitle strong {
   font-weight: 700;
-  text-decoration: underline;
+  color: var(--color-success);
 }
 
 .successMessage {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-  padding: 24px 40px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  padding: 20px 36px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   display: inline-block;
 }
 
 .successMessage p {
-  font-size: 20px;
-  color: white;
-  font-weight: 600;
-  margin: 8px 0;
+  font-size: 17px;
+  color: var(--text-inverse);
+  font-weight: 500;
+  margin: 6px 0;
+  opacity: 0.9;
 }
 
 @media (max-width: 1024px) {
@@ -499,19 +524,24 @@
   }
 
   .welcomeTitle {
-    font-size: 40px;
+    font-size: 36px;
   }
 
   .instructionsCard {
-    padding: 40px 50px;
+    padding: 40px 48px;
+  }
+
+  .qrImage {
+    width: 340px;
+    height: 340px;
   }
 }
 
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
-    gap: 20px;
-    padding: 30px 20px;
+    gap: 16px;
+    padding: 28px 20px;
   }
 
   .clock {
@@ -519,7 +549,7 @@
   }
 
   .time {
-    font-size: 32px;
+    font-size: 28px;
   }
 
   .featuresGrid {
@@ -527,14 +557,36 @@
   }
 
   .welcomeTitle {
-    font-size: 32px;
+    font-size: 28px;
   }
 
   .instructionsCard {
-    padding: 30px 20px;
+    padding: 28px 20px;
   }
 
   .instructionsTitle {
+    font-size: 22px;
+  }
+
+  .qrCard {
+    padding: 28px;
+  }
+
+  .qrImage {
+    width: 280px;
+    height: 280px;
+  }
+
+  .scanTitle {
     font-size: 24px;
+  }
+
+  .successTitle {
+    font-size: 32px;
+  }
+
+  .stepsInfo {
+    flex-direction: column;
+    gap: 12px;
   }
 }

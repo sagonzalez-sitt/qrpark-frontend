@@ -1,16 +1,17 @@
 .empty {
   text-align: center;
-  color: #999;
+  color: var(--text-muted);
   padding: 60px 20px;
 }
 
 .emptyIcon {
-  font-size: 64px;
-  margin-bottom: 16px;
+  font-size: 56px;
+  margin-bottom: 14px;
+  opacity: 0.2;
 }
 
 .emptyText {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .qrContainer {
@@ -21,84 +22,96 @@
 }
 
 .qrImage {
-  width: 300px;
-  height: 300px;
-  margin-bottom: 24px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 16px;
-  background: white;
+  width: 260px;
+  height: 260px;
+  margin-bottom: 20px;
+  border: 3px solid var(--brand-accent);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  background: var(--surface-card);
+  box-shadow: var(--shadow-accent);
 }
 
 .ticketInfo {
   width: 100%;
-  background: #f8f9fa;
-  border-radius: 8px;
+  background: var(--surface-subtle);
+  border-radius: var(--radius-md);
   padding: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .infoRow {
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: 13px;
+}
+
+.infoRow:last-child {
+  margin-bottom: 0;
 }
 
 .infoLabel {
-  color: #666;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
 .infoValue {
-  color: #333;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
 }
 
 .button {
-  padding: 12px 24px;
+  padding: 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  font-family: inherit;
 }
 
 .buttonPrimary {
-  background: #4a90e2;
-  color: white;
+  background: var(--brand-accent);
+  color: var(--text-inverse);
 }
 
 .buttonPrimary:hover {
-  background: #357abd;
+  background: var(--brand-accent-hover);
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-1px);
 }
 
 .buttonSecondary {
-  background: #f0f0f0;
-  color: #333;
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
 }
 
 .buttonSecondary:hover {
-  background: #e0e0e0;
+  background: var(--surface-hover);
+  transform: translateY(-1px);
 }
 
 .buttonSuccess {
-  background: #28a745;
-  color: white;
+  background: var(--color-success);
+  color: var(--text-inverse);
 }
 
 .buttonSuccess:hover {
-  background: #218838;
+  background: var(--color-success-dark);
+  box-shadow: var(--shadow-success);
+  transform: translateY(-1px);
 }

@@ -1,70 +1,98 @@
 .main {
-  min-height: 100vh;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 48px 24px;
+    background: var(--gradient-dark);
+    position: relative;
+}
+
+.main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .header {
-  text-align: center;
-  margin-bottom: 60px;
-  color: white;
+    text-align: center;
+    margin-bottom: 48px;
+    color: var(--text-inverse);
 }
 
 .title {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 56px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #FFFFFF 0%, #C7D2FE 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .subtitle {
-  font-size: 20px;
-  font-weight: 300;
-  opacity: 0.95;
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 0.7;
+    letter-spacing: -0.01em;
 }
 
 .modulesSection {
-  margin: 40px 0 24px 0;
-  text-align: center;
+    margin: 48px 0 24px 0;
+    text-align: center;
 }
 
 .modulesTitle {
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-inverse);
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
 }
 
 .footer {
-  text-align: center;
-  margin-top: 60px;
-  color: white;
-  opacity: 0.8;
-  font-size: 14px;
+    text-align: center;
+    margin-top: 64px;
+    color: var(--text-inverse);
+    opacity: 0.4;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
 }
 
 @media (max-width: 768px) {
-  .title {
-    font-size: 32px;
-  }
+    .main {
+        padding: 32px 16px;
+    }
 
-  .subtitle {
-    font-size: 16px;
-  }
+    .title {
+        font-size: 40px;
+    }
 
-  .grid {
-    grid-template-columns: 1fr;
-  }
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }

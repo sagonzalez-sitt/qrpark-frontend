@@ -118,8 +118,6 @@ export default function TicketModal({ ticketId, onClose }: TicketModalProps) {
     switch (status) {
       case 'ACTIVE':
         return '#2ecc71';
-      case 'COMPLETED':
-        return '#95a5a6';
       case 'PAID':
         return '#3498db';
       case 'CANCELLED':
@@ -133,8 +131,6 @@ export default function TicketModal({ ticketId, onClose }: TicketModalProps) {
     switch (status) {
       case 'ACTIVE':
         return 'Activo';
-      case 'COMPLETED':
-        return 'Completado';
       case 'PAID':
         return 'Pagado';
       case 'CANCELLED':

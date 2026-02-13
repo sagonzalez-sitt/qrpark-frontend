@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styles from './QRDisplay.module.css';
 import {TicketResponse} from "@/interfaces/interfaces";
+import {smartDownloadQR} from '../../utils/downloadQR';
 
 interface QRDisplayProps {
   ticket: TicketResponse | null;
@@ -20,12 +21,7 @@ export default function QRDisplay({ ticket, qrDataUrl }: QRDisplayProps) {
   }
 
   const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = qrDataUrl;
-    link.download = `ticket-${ticket.plate_number}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    smartDownloadQR(qrDataUrl, `ticket-${ticket.plate_number}.png`);
   };
 
   const handlePrint = () => {

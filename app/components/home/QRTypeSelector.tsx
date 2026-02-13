@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { smartDownloadQR } from '../../utils/downloadQR';
 import styles from './qrtypeselector.module.css';
 
 export default function QRTypeSelector() {
@@ -41,13 +42,7 @@ export default function QRTypeSelector() {
 
   const downloadQR = () => {
     if (!qrDataUrl) return;
-
-    const link = document.createElement('a');
-    link.href = qrDataUrl;
-    link.download = 'parkqr-estatico.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    smartDownloadQR(qrDataUrl, 'parkqr-estatico.png');
   };
 
   return (

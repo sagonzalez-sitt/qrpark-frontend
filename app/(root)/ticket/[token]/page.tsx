@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import {TicketResponse} from '../../../../interfaces/interfaces';
 import {TicketDeliveryMethod} from '../../../../interfaces/enums';
+import {smartDownloadQR} from '../../../utils/downloadQR';
 import styles from './page.module.css';
 
 interface Props {
@@ -121,13 +122,7 @@ export default function TicketPage({params}: Props) {
 
     const downloadQR = () => {
         if (!qrDataUrl || !ticket) return;
-
-        const link = document.createElement('a');
-        link.href = qrDataUrl;
-        link.download = `parkqr-${ticket.plate_number}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        smartDownloadQR(qrDataUrl, `parkqr-${ticket.plate_number}.png`);
     };
 
     if (loading) {

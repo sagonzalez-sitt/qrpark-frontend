@@ -345,6 +345,114 @@
   font-weight: 500;
 }
 
+/* === Quick Register (vehículo guardado) === */
+.quickCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.quickLabel {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
+
+.quickVehicleBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--brand-accent);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  color: var(--text-inverse);
+}
+
+.quickVehicleBtn:hover:not(:disabled) {
+  background: var(--brand-accent-dark, #4f46e5);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+}
+
+.quickVehicleBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.quickVehicleIcon {
+  font-size: 40px;
+  flex-shrink: 0;
+}
+
+.quickVehicleInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.quickPlate {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.quickType {
+  font-size: 13px;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+.quickArrow {
+  font-size: 22px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.changeVehicleBtn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px 8px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-base);
+}
+
+.changeVehicleBtn:hover {
+  color: var(--text-secondary);
+}
+
+.backToSavedBtn {
+  background: none;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  transition: all var(--transition-base);
+  align-self: flex-start;
+}
+
+.backToSavedBtn:hover {
+  background: var(--surface-subtle);
+  color: var(--text-primary);
+}
+
 @media (max-width: 768px) {
   .container { padding: 12px; }
   .formCard, .successCard { padding: 24px; }

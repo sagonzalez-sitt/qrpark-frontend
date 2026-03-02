@@ -34,6 +34,7 @@ export default function EntryDisplayPage() {
         useState<CompletedTicket | null>(null);
     const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [qrFading, setQrFading] = useState(false);
 
     // Reloj
     useEffect(() => {
@@ -48,6 +49,51 @@ export default function EntryDisplayPage() {
     useEffect(() => {
         generateNewSession();
     }, []);
+
+    // Refresh silencioso del QR 30s antes de que expire la sesión
+    useEffect(() => {
+        if (state !== 'showing_qr' || !currentSession) return;
+
+        const expiresAt = new Date(currentSession.expires_at).getTime();
+        const refreshIn = expiresAt - Date.now() - 30_000;
+
+        if (refreshIn <= 0) return;
+
+        const timer = setTimeout(async () => {
+            try {
+                const sessionResponse = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/registration-sessions`,
+                    {method: 'POST', headers: {'Content-Type': 'application/json'}}
+                );
+                if (!sessionResponse.ok) return;
+                const newSession: RegistrationSession = await sessionResponse.json();
+
+                const registerUrl = `${window.location.origin}/register?session=${newSession.session_token}`;
+                const qrResponse = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/qr/generate`,
+                    {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({content: registerUrl}),
+                    }
+                );
+                if (!qrResponse.ok) return;
+                const qrData = await qrResponse.json();
+
+                // Fade out → swap → fade in
+                setQrFading(true);
+                setTimeout(() => {
+                    setCurrentSession(newSession);
+                    setQrDataUrl(qrData.qrDataUrl);
+                    setTimeout(() => setQrFading(false), 50);
+                }, 300);
+            } catch (err) {
+                console.error('Silent QR refresh failed:', err);
+            }
+        }, refreshIn);
+
+        return () => clearTimeout(timer);
+    }, [currentSession, state]);
 
     // Polling para verificar si la sesión se completó
     useEffect(() => {
@@ -276,7 +322,7 @@ export default function EntryDisplayPage() {
                                     <img
                                         src={qrDataUrl}
                                         alt="Código QR"
-                                        className={styles.qrImage}
+                                        className={`${styles.qrImage} ${qrFading ? styles.qrImageFading : ''}`}
                                     />
                                     <div className={styles.qrPulse}></div>
                                 </div>

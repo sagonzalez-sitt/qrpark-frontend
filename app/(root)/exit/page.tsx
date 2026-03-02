@@ -15,7 +15,7 @@ function extractTokenFromQr(text: string): string {
 }
 
 export default function ExitPage() {
-    const [searchMode, setSearchMode] = useState<SearchMode>('token');
+    const [searchMode, setSearchMode] = useState<SearchMode>('plate');
     const [searchValue, setSearchValue] = useState('');
     const [loading, setLoading] = useState(false);
     const [ticket, setTicket] = useState<TicketResponse | null>(null);
@@ -186,17 +186,6 @@ export default function ExitPage() {
                         <div className={styles.searchToggle}>
                             <button
                                 type="button"
-                                className={`${styles.toggleOption} ${searchMode === 'token' ? styles.toggleOptionActive : ''}`}
-                                onClick={() => {
-                                    setSearchMode('token');
-                                    setSearchValue('');
-                                    setError(null);
-                                }}
-                            >
-                                Código QR
-                            </button>
-                            <button
-                                type="button"
                                 className={`${styles.toggleOption} ${searchMode === 'plate' ? styles.toggleOptionActive : ''}`}
                                 onClick={() => {
                                     setSearchMode('plate');
@@ -205,6 +194,17 @@ export default function ExitPage() {
                                 }}
                             >
                                 Placa
+                            </button>
+                            <button
+                                type="button"
+                                className={`${styles.toggleOption} ${searchMode === 'token' ? styles.toggleOptionActive : ''}`}
+                                onClick={() => {
+                                    setSearchMode('token');
+                                    setSearchValue('');
+                                    setError(null);
+                                }}
+                            >
+                                Código QR
                             </button>
                         </div>
 

@@ -1,11 +1,25 @@
 'use client';
 
-import {useState, useEffect, Suspense} from 'react';
+import {useState, useEffect, useCallback, Suspense} from 'react';
 import {useSearchParams} from 'next/navigation';
 import {VehicleType} from '../../../interfaces/enums';
 import {TicketResponse} from '../../../interfaces/interfaces';
 import {smartDownloadQR} from '../../utils/downloadQR';
 import styles from './page.module.css';
+
+const STORAGE_KEY = 'parkqr_vehicle';
+
+function vehicleIcon(type: VehicleType) {
+    if (type === VehicleType.CAR) return '🚗';
+    if (type === VehicleType.MOTORCYCLE) return '🏍️';
+    return '🚲';
+}
+
+function vehicleTypeName(type: VehicleType) {
+    if (type === VehicleType.CAR) return 'Automóvil';
+    if (type === VehicleType.MOTORCYCLE) return 'Motocicleta';
+    return 'Bicicleta';
+}
 
 function RegisterContent() {
     const searchParams = useSearchParams();
@@ -18,15 +32,33 @@ function RegisterContent() {
     const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [sessionValid, setSessionValid] = useState<boolean | null>(null);
+    const [savedVehicle, setSavedVehicle] = useState<{plate: string; type: VehicleType} | null>(null);
+    const [showForm, setShowForm] = useState(false);
 
     useEffect(() => {
+        // Cargar vehículo guardado del localStorage
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+                const saved = JSON.parse(raw);
+                if (saved.plate && saved.type) {
+                    setSavedVehicle({plate: saved.plate, type: saved.type as VehicleType});
+                } else {
+                    setShowForm(true);
+                }
+            } else {
+                setShowForm(true);
+            }
+        } catch {
+            setShowForm(true);
+        }
+
         if (!sessionToken) {
             setError('No se proporcionó un código de sesión válido');
             setSessionValid(false);
             return;
         }
 
-        // Verificar que la sesión sea válida
         const checkSession = async () => {
             try {
                 const response = await fetch(
@@ -58,6 +90,45 @@ function RegisterContent() {
         checkSession();
     }, [sessionToken]);
 
+    const doRegister = useCallback(async (plate: string, type: VehicleType) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/registration-sessions/${sessionToken}/complete`,
+                {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({plate_number: plate, vehicle_type: type}),
+                }
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Error al registrar el vehículo');
+            }
+
+            const data = await response.json();
+            const ticketData: TicketResponse = data.ticket;
+
+            const qrResponse = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/qr/${ticketData.qr_token}/dataurl`
+            );
+            if (qrResponse.ok) {
+                const qrData = await qrResponse.json();
+                setQrDataUrl(qrData.qrDataUrl);
+            }
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({plate, type}));
+            setTicket(ticketData);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Error al procesar la solicitud');
+            console.error('Error:', err);
+        } finally {
+            setLoading(false);
+        }
+    }, [sessionToken]);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
@@ -73,47 +144,12 @@ function RegisterContent() {
             return;
         }
 
-        setLoading(true);
+        await doRegister(plateNumber.toUpperCase(), vehicleType);
+    };
 
-        try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/registration-sessions/${sessionToken}/complete`,
-                {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        plate_number: plateNumber.toUpperCase(),
-                        vehicle_type: vehicleType,
-                    }),
-                }
-            );
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Error al registrar el vehículo');
-            }
-
-            const data = await response.json();
-            const ticketData: TicketResponse = data.ticket;
-
-            const qrResponse = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/qr/${ticketData.qr_token}/dataurl`
-            );
-
-            if (qrResponse.ok) {
-                const qrData = await qrResponse.json();
-                setQrDataUrl(qrData.qrDataUrl);
-            }
-
-            setTicket(ticketData);
-        } catch (err) {
-            setError(
-                err instanceof Error ? err.message : 'Error al procesar la solicitud'
-            );
-            console.error('Error:', err);
-        } finally {
-            setLoading(false);
-        }
+    const handleQuickRegister = () => {
+        if (!savedVehicle) return;
+        doRegister(savedVehicle.plate, savedVehicle.type);
     };
 
     const downloadQR = () => {
@@ -172,94 +208,127 @@ function RegisterContent() {
 
                 {!ticket ? (
                     <div className={styles.formCard}>
-                        <div className={styles.steps}>
-                            <div className={styles.step}>
-                                <div className={styles.stepNumber}>1</div>
-                                <div className={styles.stepText}>Ingresa tu placa</div>
+                        {savedVehicle && !showForm ? (
+                            <div className={styles.quickCard}>
+                                <p className={styles.quickLabel}>¿Entras con tu vehículo habitual?</p>
+                                <button
+                                    type="button"
+                                    className={styles.quickVehicleBtn}
+                                    onClick={handleQuickRegister}
+                                    disabled={loading}
+                                >
+                                    <span className={styles.quickVehicleIcon}>{vehicleIcon(savedVehicle.type)}</span>
+                                    <div className={styles.quickVehicleInfo}>
+                                        <span className={styles.quickPlate}>{savedVehicle.plate}</span>
+                                        <span className={styles.quickType}>{vehicleTypeName(savedVehicle.type)}</span>
+                                    </div>
+                                    <span className={styles.quickArrow}>{loading ? '⏳' : '→'}</span>
+                                </button>
+                                {error && <div className={styles.errorBox}>⚠️ {error}</div>}
+                                <button
+                                    type="button"
+                                    className={styles.changeVehicleBtn}
+                                    onClick={() => setShowForm(true)}
+                                >
+                                    Usar otro vehículo
+                                </button>
                             </div>
-                            <div className={styles.step}>
-                                <div className={styles.stepNumber}>2</div>
-                                <div className={styles.stepText}>Selecciona vehículo</div>
-                            </div>
-                            <div className={styles.step}>
-                                <div className={styles.stepNumber}>3</div>
-                                <div className={styles.stepText}>Obtén tu código</div>
-                            </div>
-                        </div>
-
-                        <form onSubmit={handleSubmit} className={styles.form}>
-                            <div className={styles.formGroup}>
-                                <label htmlFor="plateNumber" className={styles.label}>
-                                    Número de Placa
-                                </label>
-                                <input
-                                    id="plateNumber"
-                                    type="text"
-                                    value={plateNumber}
-                                    onChange={(e) => setPlateNumber(e.target.value.toUpperCase())}
-                                    placeholder="Ej: ABC123"
-                                    maxLength={10}
-                                    className={styles.input}
-                                    autoFocus
-                                />
-                            </div>
-
-                            <div className={styles.formGroup}>
-                                <label className={styles.label}>Tipo de Vehículo</label>
-                                <div className={styles.vehicleOptions}>
+                        ) : (
+                            <>
+                                {savedVehicle && (
                                     <button
                                         type="button"
-                                        className={`${styles.vehicleOption} ${
-                                            vehicleType === VehicleType.CAR ? styles.selected : ''
-                                        }`}
-                                        onClick={() => setVehicleType(VehicleType.CAR)}
+                                        className={styles.backToSavedBtn}
+                                        onClick={() => setShowForm(false)}
                                     >
-                                        <div className={styles.vehicleIcon}>🚗</div>
-                                        <div className={styles.vehicleLabel}>Automóvil</div>
+                                        ← Volver a vehículo guardado
                                     </button>
+                                )}
 
-                                    <button
-                                        type="button"
-                                        className={`${styles.vehicleOption} ${
-                                            vehicleType === VehicleType.MOTORCYCLE ? styles.selected : ''
-                                        }`}
-                                        onClick={() => setVehicleType(VehicleType.MOTORCYCLE)}
-                                    >
-                                        <div className={styles.vehicleIcon}>🏍️</div>
-                                        <div className={styles.vehicleLabel}>Motocicleta</div>
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        className={`${styles.vehicleOption} ${
-                                            vehicleType === VehicleType.BICYCLE ? styles.selected : ''
-                                        }`}
-                                        onClick={() => setVehicleType(VehicleType.BICYCLE)}
-                                    >
-                                        <div className={styles.vehicleIcon}>🚲</div>
-                                        <div className={styles.vehicleLabel}>Bicicleta</div>
-                                    </button>
+                                <div className={styles.steps}>
+                                    <div className={styles.step}>
+                                        <div className={styles.stepNumber}>1</div>
+                                        <div className={styles.stepText}>Ingresa tu placa</div>
+                                    </div>
+                                    <div className={styles.step}>
+                                        <div className={styles.stepNumber}>2</div>
+                                        <div className={styles.stepText}>Selecciona vehículo</div>
+                                    </div>
+                                    <div className={styles.step}>
+                                        <div className={styles.stepNumber}>3</div>
+                                        <div className={styles.stepText}>Obtén tu código</div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            {error && <div className={styles.errorBox}>⚠️ {error}</div>}
+                                <form onSubmit={handleSubmit} className={styles.form}>
+                                    <div className={styles.formGroup}>
+                                        <label htmlFor="plateNumber" className={styles.label}>
+                                            Número de Placa
+                                        </label>
+                                        <input
+                                            id="plateNumber"
+                                            type="text"
+                                            value={plateNumber}
+                                            onChange={(e) => setPlateNumber(e.target.value.toUpperCase())}
+                                            placeholder="Ej: ABC123"
+                                            maxLength={10}
+                                            className={styles.input}
+                                            autoFocus
+                                        />
+                                    </div>
 
-                            <button
-                                type="submit"
-                                disabled={loading || !plateNumber || !vehicleType}
-                                className={styles.submitButton}
-                            >
-                                {loading ? '⏳ Registrando...' : '🎯 Completar Registro'}
-                            </button>
-                        </form>
+                                    <div className={styles.formGroup}>
+                                        <label className={styles.label}>Tipo de Vehículo</label>
+                                        <div className={styles.vehicleOptions}>
+                                            <button
+                                                type="button"
+                                                className={`${styles.vehicleOption} ${vehicleType === VehicleType.CAR ? styles.selected : ''}`}
+                                                onClick={() => setVehicleType(VehicleType.CAR)}
+                                            >
+                                                <div className={styles.vehicleIcon}>🚗</div>
+                                                <div className={styles.vehicleLabel}>Automóvil</div>
+                                            </button>
 
-                        <div className={styles.infoBox}>
-                            <div className={styles.infoIcon}>ℹ️</div>
-                            <div className={styles.infoText}>
-                                <strong>Importante:</strong> Guarda el código QR que recibirás.
-                                Lo necesitarás para salir del parqueadero.
-                            </div>
-                        </div>
+                                            <button
+                                                type="button"
+                                                className={`${styles.vehicleOption} ${vehicleType === VehicleType.MOTORCYCLE ? styles.selected : ''}`}
+                                                onClick={() => setVehicleType(VehicleType.MOTORCYCLE)}
+                                            >
+                                                <div className={styles.vehicleIcon}>🏍️</div>
+                                                <div className={styles.vehicleLabel}>Motocicleta</div>
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                className={`${styles.vehicleOption} ${vehicleType === VehicleType.BICYCLE ? styles.selected : ''}`}
+                                                onClick={() => setVehicleType(VehicleType.BICYCLE)}
+                                            >
+                                                <div className={styles.vehicleIcon}>🚲</div>
+                                                <div className={styles.vehicleLabel}>Bicicleta</div>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {error && <div className={styles.errorBox}>⚠️ {error}</div>}
+
+                                    <button
+                                        type="submit"
+                                        disabled={loading || !plateNumber || !vehicleType}
+                                        className={styles.submitButton}
+                                    >
+                                        {loading ? '⏳ Registrando...' : '🎯 Completar Registro'}
+                                    </button>
+                                </form>
+
+                                <div className={styles.infoBox}>
+                                    <div className={styles.infoIcon}>ℹ️</div>
+                                    <div className={styles.infoText}>
+                                        <strong>Importante:</strong> Guarda el código QR que recibirás.
+                                        Lo necesitarás para salir del parqueadero.
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </div>
                 ) : (
                     <div className={styles.successCard}>

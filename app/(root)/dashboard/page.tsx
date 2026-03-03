@@ -41,6 +41,8 @@ export default function DashboardPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedTicketId, setSelectedTicketId] = useState<string | null>(null);
+    const [pageSize, setPageSize] = useState(20);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const fetchStatistics = async () => {
         try {
@@ -57,7 +59,8 @@ export default function DashboardPage() {
             const ticketsData = await ticketsResponse.json();
 
             setStats(statsData);
-            setTickets(ticketsData.slice(0, 20)); // Limitar a 20 tickets
+            setTickets(ticketsData);
+            setCurrentPage(1);
             setError(null);
         } catch (err) {
             setError(
@@ -102,6 +105,21 @@ export default function DashboardPage() {
             minute: '2-digit',
         });
     };
+
+    const formatDay = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('es-CO', {
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit',
+        });
+    };
+
+    const totalPages = Math.max(1, Math.ceil(tickets.length / pageSize));
+    const safePage = Math.min(currentPage, totalPages);
+    const paginatedTickets = tickets.slice((safePage - 1) * pageSize, safePage * pageSize);
+    const rangeStart = tickets.length === 0 ? 0 : (safePage - 1) * pageSize + 1;
+    const rangeEnd = Math.min(safePage * pageSize, tickets.length);
 
     const getStatusBadge = (status: string) => {
         switch (status) {
@@ -204,7 +222,23 @@ export default function DashboardPage() {
                             <div className={styles.leftColumn}>
                                 {/* Historial de Vehículos */}
                                 <div className={styles.chartCard}>
-                                    <h2 className={styles.chartTitle}>Historial de Vehículos</h2>
+                                    <div className={styles.tableHeader}>
+                                        <h2 className={styles.chartTitle}>Historial de Vehículos</h2>
+                                        <div className={styles.pageSizeSelector}>
+                                            <label>Mostrar:</label>
+                                            <select
+                                                value={pageSize}
+                                                onChange={(e) => {
+                                                    setPageSize(Number(e.target.value));
+                                                    setCurrentPage(1);
+                                                }}
+                                            >
+                                                <option value={20}>20</option>
+                                                <option value={50}>50</option>
+                                                <option value={100}>100</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div className={styles.tableContainer}>
                                         <table className={styles.ticketsTable}>
                                             <thead>
@@ -212,19 +246,20 @@ export default function DashboardPage() {
                                                 <th>Placa</th>
                                                 <th>Tipo</th>
                                                 <th>Estado</th>
-                                                <th>Hora Entrada</th>
+                                                <th>Día</th>
+                                                <th>Hora</th>
                                                 <th>Tarifa</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {tickets.length === 0 ? (
+                                            {paginatedTickets.length === 0 ? (
                                                 <tr>
-                                                    <td colSpan={5} className={styles.emptyTable}>
+                                                    <td colSpan={6} className={styles.emptyTable}>
                                                         No hay vehículos registrados
                                                     </td>
                                                 </tr>
                                             ) : (
-                                                tickets.map((ticket) => {
+                                                paginatedTickets.map((ticket) => {
                                                     const status = getStatusBadge(ticket.status);
                                                     return (
                                                         <tr key={ticket.id}>
@@ -238,13 +273,14 @@ export default function DashboardPage() {
                                                                 {getVehicleIcon(ticket.vehicle_type)}
                                                             </td>
                                                             <td>
-                                  <span
-                                      className={styles.statusBadge}
-                                      style={{background: status.color}}
-                                  >
-                                    {status.text}
-                                  </span>
+                                                                <span
+                                                                    className={styles.statusBadge}
+                                                                    style={{background: status.color}}
+                                                                >
+                                                                    {status.text}
+                                                                </span>
                                                             </td>
+                                                            <td className={styles.dayCell}>{formatDay(ticket.entry_timestamp)}</td>
                                                             <td>{formatTime(ticket.entry_timestamp)}</td>
                                                             <td className={styles.feeCell}>
                                                                 {ticket.calculated_fee
@@ -257,6 +293,36 @@ export default function DashboardPage() {
                                             )}
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div className={styles.pagination}>
+                                        <span className={styles.paginationInfo}>
+                                            Mostrando {rangeStart}–{rangeEnd} de {tickets.length}
+                                        </span>
+                                        <div className={styles.paginationButtons}>
+                                            <button
+                                                onClick={() => setCurrentPage(1)}
+                                                disabled={safePage === 1}
+                                                className={styles.pageBtn}
+                                            >«</button>
+                                            <button
+                                                onClick={() => setCurrentPage(p => p - 1)}
+                                                disabled={safePage === 1}
+                                                className={styles.pageBtn}
+                                            >‹</button>
+                                            <span className={styles.pageIndicator}>
+                                                {safePage} de {totalPages}
+                                            </span>
+                                            <button
+                                                onClick={() => setCurrentPage(p => p + 1)}
+                                                disabled={safePage === totalPages}
+                                                className={styles.pageBtn}
+                                            >›</button>
+                                            <button
+                                                onClick={() => setCurrentPage(totalPages)}
+                                                disabled={safePage === totalPages}
+                                                className={styles.pageBtn}
+                                            >»</button>
+                                        </div>
                                     </div>
                                 </div>
 
